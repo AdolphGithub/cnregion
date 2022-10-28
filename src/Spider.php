@@ -148,7 +148,11 @@ class Spider
 
                 $data[] = $city;
 
-                $crawler->filter('.countytr')->each(function(Crawler $c) use (&$data, $city) {
+                $result = $crawler->filter('.countytr')->count()
+                    ? $crawler->filter('.countytr')
+                    : $crawler->filter('.towntr');
+
+                $result->each(function(Crawler $c) use (&$data, $city) {
                     $id = $c->filter('td')->getNode(0)->nodeValue;
                     $area_id = substr($id, 0, 6);
                     $area_name = $c->filter('td')->getNode(1)->nodeValue;
