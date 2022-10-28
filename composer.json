@@ -1,0 +1,20 @@
+{
+    "name": "adolphgithub/cnregion",
+    "type": "project",
+    "require": {
+        "guzzlehttp/guzzle": "^7.5",
+        "fabpot/goutte": "^4.0"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Adolphgithub\\Cnregion\\": "src/"
+        }
+    },
+    "repositories": {
+        "packagist": {
+            "type": "composer",
+            "url": "https://mirrors.aliyun.com/composer/"
+        }
+    }
+}
