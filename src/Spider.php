@@ -85,7 +85,7 @@ class Spider
 
         foreach($province_list as &$v) {
             $v['id'] = str_replace($this->start_url, '', $v['link']);
-            $v['id'] = str_pad(str_replace('.html', '', $v['id']), 6, '0', STR_PAD_RIGHT);
+            $v['id'] = str_pad(str_replace('.html', '', $v['id']), 9, '0', STR_PAD_RIGHT);
             $v['province_id'] = $v['id'];
             $v['province'] = $v['name'];
             $v['province_alias_name'] = $province_name_alias[$v['name']];
@@ -117,7 +117,8 @@ class Spider
             $data[] = $province;
 
             $crawler->filter('.citytr')->each(function(Crawler $c) use (&$city_list, $province) {
-                $city_id = $c->filter('td')->getNode(0)->nodeValue;
+                $id = $c->filter('td')->getNode(0)->nodeValue;
+                $city_id = substr($id, 0, 9);
                 $city_name = $c->filter('td')->getNode(1)->nodeValue;
 
                 $link = $c->filter('td a:nth-child(1)')->link();
@@ -152,7 +153,8 @@ class Spider
                     : $crawler->filter('.towntr');
 
                 $result->each(function(Crawler $c) use (&$data, $city) {
-                    $area_id = $c->filter('td')->getNode(0)->nodeValue;
+                    $id = $c->filter('td')->getNode(0)->nodeValue;
+                    $area_id = substr($id, 0, 9);
                     $area_name = $c->filter('td')->getNode(1)->nodeValue;
 
                     $data[] = [
@@ -182,10 +184,10 @@ class Spider
         $table = "CREATE TABLE `city` (
   `id` int(11) NOT NULL DEFAULT '0' COMMENT 'ID',
   `name` varchar(20) NOT NULL DEFAULT '' COMMENT '地址名称',
-  `province_id` mediumint(9) NOT NULL DEFAULT '0' COMMENT '省id',
+  `province_id` int(11) NOT NULL DEFAULT '0' COMMENT '省id',
   `province` varchar(20) NOT NULL DEFAULT '' COMMENT '省名称',
   `province_alias_name` varchar(20) NOT NULL DEFAULT '' COMMENT '省份别名',
-  `city_id` mediumint(9) NOT NULL DEFAULT '0' COMMENT '市id',
+  `city_id` int(11) NOT NULL DEFAULT '0' COMMENT '市id',
   `city` varchar(20) NOT NULL DEFAULT '' COMMENT '市名称',
   `area_id` int(11) NOT NULL DEFAULT '0' COMMENT '区域id',
   `area` varchar(20) NOT NULL DEFAULT '0' COMMENT '区域名称',
