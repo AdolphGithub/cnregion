@@ -117,8 +117,7 @@ class Spider
             $data[] = $province;
 
             $crawler->filter('.citytr')->each(function(Crawler $c) use (&$city_list, $province) {
-                $id = $c->filter('td')->getNode(0)->nodeValue;
-                $city_id = substr($id, 0, 6);
+                $city_id = $c->filter('td')->getNode(0)->nodeValue;
                 $city_name = $c->filter('td')->getNode(1)->nodeValue;
 
                 $link = $c->filter('td a:nth-child(1)')->link();
@@ -153,8 +152,7 @@ class Spider
                     : $crawler->filter('.towntr');
 
                 $result->each(function(Crawler $c) use (&$data, $city) {
-                    $id = $c->filter('td')->getNode(0)->nodeValue;
-                    $area_id = substr($id, 0, 6);
+                    $area_id = $c->filter('td')->getNode(0)->nodeValue;
                     $area_name = $c->filter('td')->getNode(1)->nodeValue;
 
                     $data[] = [
