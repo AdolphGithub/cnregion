@@ -18,4 +18,4 @@ $spider->setStartUrl('最新爬取网址');
 $spider->run();
 ```
 ### 最后
-祝打架使用愉快
+祝大家使用愉快
